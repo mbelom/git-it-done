@@ -1,3 +1,23 @@
+var userFormEl = document.querySelector("#user-form");
+var nameInputEl = document.querySelector("#username");
+var repoContainerEl = document.querySelector("#repos-container");
+var repoSearchTerm = document.querySelector("#repo-search-term");
+
+//to be executed upon a form submission browser event
+var formSubmitHandler = function (event) {
+	event.preventDefault();
+	// get value from input element
+	var username = nameInputEl.value.trim();
+
+	if (username) {
+		getUserRepos(username);
+		nameInputEl.value = "";
+	} else {
+		alert("Please enter a GitHub username");
+	}
+	console.log(event);
+};
+
 var getUserRepos = function (user) {
 	// format the github api url
 	var apiUrl = "https://api.github.com/users/" + user + "/repos";
@@ -18,24 +38,6 @@ var getUserRepos = function (user) {
 			// Notice this `.catch()` getting chained onto the end of the `.then()` method
 			alert("Unable to connect to GitHub");
 		});
-};
-
-var userFormEl = document.querySelector("#user-form");
-var nameInputEl = document.querySelector("#username");
-
-//to be executed upon a form submission browser event
-var formSubmitHandler = function (event) {
-	event.preventDefault();
-	// get value from input element
-	var username = nameInputEl.value.trim();
-
-	if (username) {
-		getUserRepos(username);
-		nameInputEl.value = "";
-	} else {
-		alert("Please enter a GitHub username");
-	}
-	console.log(event);
 };
 
 var displayRepos = function (repos, searchTerm) {
@@ -88,8 +90,5 @@ var displayRepos = function (repos, searchTerm) {
 		repoContainerEl.appendChild(repoEl);
 	}
 };
-
-var repoContainerEl = document.querySelector("#repos-container");
-var repoSearchTerm = document.querySelector("#repo-search-term");
 
 userFormEl.addEventListener("submit", formSubmitHandler);
