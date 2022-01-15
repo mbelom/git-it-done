@@ -90,5 +90,5 @@ var displayRepos = function (repos, searchTerm) {
 		repoContainerEl.appendChild(repoEl);
 	}
 };
-
+// add event listeners to forms
 userFormEl.addEventListener("submit", formSubmitHandler);
